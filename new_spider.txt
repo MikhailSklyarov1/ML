@@ -1,0 +1,80 @@
+
+class Spider:
+    def __init__(self, x, speed):
+        self.x = x
+        self.speed = speed
+
+
+
+class BlackSpider(Spider):
+    def __init__(self, x, speed, hp):
+        super().__init__(x, speed)
+        self.hp = hp
+
+
+class Tile:
+
+    def __init__(self):
+        self.insect = 0
+
+    def repaint(self):
+        if isinstance(self.insect, BlackSpider):
+            string_ = '%'
+        elif isinstance(self.insect, Spider):
+            string_ = '*'
+        else:
+            string_ = '_'
+        return string_
+
+
+
+def printTiles(t):
+
+    for i in t:
+        print(i, end="")
+
+    print('\n***********************\n\n\n')
+
+
+object_tile_list = [1,1,1,1,1,1]
+string_tile_list = [1,1,1,1,1,1]
+
+object_tile_list[0] = Tile()
+string_tile_list[0] = object_tile_list[0].repaint()
+
+object_tile_list[1] = Tile()
+sp = BlackSpider(1, 1, 50)
+object_tile_list[1].insect = sp
+string_tile_list[1] = object_tile_list[1].repaint()
+
+object_tile_list[2] = Tile()
+string_tile_list[2] = object_tile_list[2].repaint()
+
+object_tile_list[3] = Tile()
+string_tile_list[3] = object_tile_list[3].repaint()
+
+object_tile_list[4] = Tile()
+string_tile_list[4] = object_tile_list[4].repaint()
+
+object_tile_list[5] = Tile()
+string_tile_list[5] = object_tile_list[5].repaint()
+
+
+printTiles(string_tile_list)
+
+while True:
+    res = input()
+    if res == '1':
+        object_tile_list[sp.x].insect = 0
+        object_tile_list[sp.x+1].insect = sp
+        string_tile_list[sp.x] = object_tile_list[sp.x].repaint()
+        string_tile_list[sp.x+1] = object_tile_list[sp.x+1].repaint()
+        printTiles(string_tile_list)
+        sp.x = sp.x + 1
+    elif res == "2":
+        object_tile_list[sp.x].insect = 0
+        object_tile_list[sp.x - 1].insect = sp
+        string_tile_list[sp.x] = object_tile_list[sp.x].repaint()
+        string_tile_list[sp.x - 1] = object_tile_list[sp.x - 1].repaint()
+        printTiles(string_tile_list)
+        sp.x = sp.x - 1
